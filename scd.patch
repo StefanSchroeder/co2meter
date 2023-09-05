@@ -1,0 +1,90 @@
+diff --git a/Makefile b/Makefile
+index 952673e..744d386 100644
+--- a/Makefile
++++ b/Makefile
+@@ -15,8 +15,8 @@ endif
+ all: scd30_i2c_example_usage
+ 
+ scd30_i2c_example_usage: clean
+-	$(CC) $(CFLAGS) -o $@  ${driver_sources} ${i2c_sources} \
+-		${i2c_implementation} ${common_sources} scd30_i2c_example_usage.c
++	$(CC) $(CFLAGS) -o scd30forever  ${driver_sources} ${i2c_sources} \
++		${i2c_implementation} ${common_sources} scd30_i2c_example_usage.c  -lsqlite3
+ 
+ clean:
+ 	$(RM) scd30_i2c_example_usage
+diff --git a/scd30_i2c_example_usage.c b/scd30_i2c_example_usage.c
+index acbcc2b..4fbd29b 100644
+--- a/scd30_i2c_example_usage.c
++++ b/scd30_i2c_example_usage.c
+@@ -39,13 +39,30 @@
+ #include "sensirion_common.h"
+ #include "sensirion_i2c_hal.h"
+ #include <stdio.h>  // printf
++#include <sqlite3.h>
+ 
+ #define sensirion_hal_sleep_us sensirion_i2c_hal_sleep_usec
+ 
+-int main(void) {
++static int callback(void *NotUsed, int argc, char **argv, char **azColName){
++    int i;
++    for(i=0; i<argc; i++){
++    	printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
++    }
++    printf("\n");
++    return 0;
++}
++
++int one_shot(void) {
++    sqlite3 *db;
++    char *zErrMsg = 0;
++    int rc;
++    rc = sqlite3_open("/var/run/scd30.db", &db);
++    if( rc ){
++      fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
++      sqlite3_close(db);
++      return(1);
++    }
+     int16_t error = NO_ERROR;
+-    sensirion_i2c_hal_init();
+-    init_driver(SCD30_I2C_ADDR_61);
+ 
+     // make sure the sensor is in a defined state (soft reset does not stop
+     // periodic measurement)
+@@ -83,6 +100,18 @@ int main(void) {
+         printf("co2_concentration: %.2f ", co2_concentration);
+         printf("temperature: %.2f ", temperature);
+         printf("humidity: %.2f\n", humidity);
++
++	const char fmt[] = "INSERT INTO 'scd30' ('v1', 'v2', 'v3') VALUES (%.2f, %.2f, %.2f);";
++	int sz = snprintf(NULL, 0, fmt, co2_concentration, temperature, humidity);
++	char buf[sz + 1]; // note +1 for terminating null byte
++	snprintf(buf, sizeof buf, fmt, co2_concentration, temperature, humidity);
++	// printf("%s\n", buf);
++	rc = sqlite3_exec(db, buf, callback, 0, &zErrMsg);
++	if( rc!=SQLITE_OK ){
++		fprintf(stderr, "SQL error: %s\n", zErrMsg);
++		sqlite3_free(zErrMsg);
++	}
++
+     }
+ 
+     error = scd30_stop_periodic_measurement();
+@@ -90,6 +119,17 @@ int main(void) {
+         printf("error executing stop_periodic_measurement(): %i\n", error);
+         return error;
+     }
++    sqlite3_close(db);
+ 
+     return NO_ERROR;
+ }
++
++
++int main(void) {
++    sensirion_i2c_hal_init();
++    init_driver(SCD30_I2C_ADDR_61);
++    while(1) {
++    	one_shot();
++    	printf("New loop.\n");
++    }
++}
