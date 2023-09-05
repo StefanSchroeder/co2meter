@@ -23,11 +23,8 @@ type of product that we will use. Buy local!
 * *SCD30*  CO2 SENSOR I2C/MODBUS/PWM DIGITL 
   https://www.digikey.de/short/m9mfn9f1
 
-Use the search on the https://www.digikey.de website if you are in Germany.
-
 * Any Raspberry Pi. We will be using a Raspberry Pi Zero W, the Wifi-version,
   to avoid the necessity of attaching a monitor and keyboard.
-
 
 ## Operating system installation
 
@@ -41,10 +38,12 @@ Things to note:
 * SSH is enabled by default.
 * If you don't connect a screen, you need some way to determine the IP-address,
  refer to the dietpi documentation.
-* The default *root* user has the default password *dietpi*. Change the password at the earliest opportunity.
+* The default *root* user has the default password *dietpi*. 
 * The hostname is *dietpi*.
 
-After writing the image file to the SD-card, mount the card and edit the files *dietpi.txt* and *dietpi-wifi.txt* to match your setup and network. The only entries that I changed were:
+After writing the image file to the SD-card, mount the card and edit 
+the files *dietpi.txt* and *dietpi-wifi.txt* to match your setup and network. 
+The only entries that I changed were:
 
 In *dietpi-wifi.txt*:
 
@@ -75,15 +74,17 @@ Go to *Advanced-options*.
 
 Enable *I2C state* from Off to On.
 
+Enable *SPI state* from Off to On.
+
 Proceed to install the 'minimal-image'.
 
 Then we install a few standard tools.
 
 	apt install vim git build-essential
 
-Shutdown the Pi to install the SCD30.
+Reboot the Pi 
 
-	shutdown -h now
+	reboot
 
 
 ## The SCD30
@@ -164,14 +165,7 @@ Board Pin  | Name  | Remarks  | RPi Pin  | RPi Function
 4  | CS  | Chip Select  | 24  | GPIO 8 (SPI CE0)
 5  | CLK  | Clock  | 23  | GPIO 11 (SPI CLK)
 
-Activate SPI in dietpi:
-
-
-	Go to *dietpi-config*.
-	Go to *Advanced-options*.
-	Change *SPI State* from Off to On.
-
-https://dietpi.com/forum/t/running-an-led-dot-matrix-8x32-max7219-on-diet-pi/5518
+Reference: https://dietpi.com/forum/t/running-an-led-dot-matrix-8x32-max7219-on-diet-pi/5518
 
 	dietpi-software install 130 
 	apt install build-essential libfreetype6-dev libjpeg-dev 
@@ -182,9 +176,22 @@ https://dietpi.com/forum/t/running-an-led-dot-matrix-8x32-max7219-on-diet-pi/551
 	rm master.tar.gz
 	mv luma.led_matrix-master /mnt/dietpi_userdata/luma.led_matrix
 	cd /mnt/dietpi_userdata/luma.led_matrix
-	python3 examples/sevensegment_demo.py
 
-Now
+The python-script *scd30-show.py* reads the latest value from the SQLite database and 
+displays them on the matrix display.
 
-	
+We install two services to make sure that the two services are started upon reboot.
+
+One for *reading* of the values from the SCD30 sensor and writing them to a SQLite db.
+
+	install scd30.service /etc/systemd/system/
+
+One for *reading* the values from the SQlite db and setting them on the matrix display.
+
+	install scd30-show.service /etc/systemd/system/
+
+We enable and start the services.
+
+	systemctl enable scd30.service 
+	systemctl enable scd30-show.service 
 	

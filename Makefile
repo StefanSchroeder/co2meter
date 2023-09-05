@@ -16,7 +16,7 @@ fetch:
 stop:
 	systemctl stop scd30-show.service
 	systemctl stop scd30.service
-start:
+restart:
 	systemctl restart scd30-show.service
 	systemctl restart scd30.service
 status:
@@ -25,4 +25,5 @@ status:
 
 show:
 	sqlite3 "/var/run/scd30.db" "select * from scd30" | awk 'BEGIN { FS="|" }; {print $$4, $$1, $$2 }' > /tmp/result.dat
+	tail /tmp/result.dat
 
