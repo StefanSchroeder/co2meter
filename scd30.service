@@ -1,0 +1,12 @@
+[Unit]
+After=ifup@wlan0.service
+Description=SCD30-Sensor Utility
+Requires=ifup@wlan0.service
+
+[Service]
+ExecStart=/usr/local/bin/scd30forever
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target
