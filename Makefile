@@ -10,6 +10,9 @@ install:
 	systemctl enable scd30.service 
 	systemctl enable scd30-show.service 
 
+createdb:
+	echo "CREATE TABLE scd30 (v1 REAL, v2 REAL, v3 REAL, t DATETIME DEFAULT CURRENT_TIMESTAMP)" | sqlite3 /var/run/scd30.db
+
 fetch:
 	git clone http://github.com/StefanSchroeder/co2meter.git
 	git clone https://github.com/Sensirion/raspberry-pi-i2c-scd30
