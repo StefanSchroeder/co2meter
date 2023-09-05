@@ -14,7 +14,7 @@ index 952673e..744d386 100644
  clean:
  	$(RM) scd30_i2c_example_usage
 diff --git a/scd30_i2c_example_usage.c b/scd30_i2c_example_usage.c
-index acbcc2b..4fbd29b 100644
+index acbcc2b..1ae904d 100644
 --- a/scd30_i2c_example_usage.c
 +++ b/scd30_i2c_example_usage.c
 @@ -39,13 +39,30 @@
@@ -51,10 +51,30 @@ index acbcc2b..4fbd29b 100644
  
      // make sure the sensor is in a defined state (soft reset does not stop
      // periodic measurement)
-@@ -83,6 +100,18 @@ int main(void) {
-         printf("co2_concentration: %.2f ", co2_concentration);
+@@ -53,14 +70,6 @@ int main(void) {
+     scd30_soft_reset();
+     sensirion_hal_sleep_us(2000000);
+ 
+-    uint8_t major = 0;
+-    uint8_t minor = 0;
+-    error = scd30_read_firmware_version(&major, &minor);
+-    if (error != NO_ERROR) {
+-        printf("error executing read_firmware_version(): %i\n", error);
+-        return error;
+-    }
+-    printf("firmware version major: %u minor: %u\n", major, minor);
+     error = scd30_start_periodic_measurement(0);
+     if (error != NO_ERROR) {
+         printf("error executing start_periodic_measurement(): %i\n", error);
+@@ -80,9 +89,21 @@ int main(void) {
+                    error);
+             continue;
+         }
+-        printf("co2_concentration: %.2f ", co2_concentration);
++        /*printf("co2_concentration: %.2f ", co2_concentration);
          printf("temperature: %.2f ", temperature);
-         printf("humidity: %.2f\n", humidity);
+-        printf("humidity: %.2f\n", humidity);
++        printf("humidity: %.2f\n", humidity);*/
 +
 +	const char fmt[] = "INSERT INTO 'scd30' ('v1', 'v2', 'v3') VALUES (%.2f, %.2f, %.2f);";
 +	int sz = snprintf(NULL, 0, fmt, co2_concentration, temperature, humidity);
@@ -70,7 +90,7 @@ index acbcc2b..4fbd29b 100644
      }
  
      error = scd30_stop_periodic_measurement();
-@@ -90,6 +119,17 @@ int main(void) {
+@@ -90,6 +111,28 @@ int main(void) {
          printf("error executing stop_periodic_measurement(): %i\n", error);
          return error;
      }
@@ -83,8 +103,19 @@ index acbcc2b..4fbd29b 100644
 +int main(void) {
 +    sensirion_i2c_hal_init();
 +    init_driver(SCD30_I2C_ADDR_61);
++
++    uint8_t major = 0;
++    uint8_t minor = 0;
++    int16_t error = NO_ERROR;
++    error = scd30_read_firmware_version(&major, &minor);
++    if (error != NO_ERROR) {
++        printf("error executing read_firmware_version(): %i\n", error);
++        return error;
++    }
++    printf("firmware version major: %u minor: %u\n", major, minor);
++
 +    while(1) {
 +    	one_shot();
-+    	printf("New loop.\n");
++    	printf("scd30: new loop\n");
 +    }
 +}
