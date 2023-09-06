@@ -11,8 +11,8 @@ install:
 	systemctl enable scd30-show.service 
 
 hwconfig:
-	/boot/dietpi/func/dietpi-set_hardware spi On
-	/boot/dietpi/func/dietpi-set_hardware i2c On
+	/boot/dietpi/func/dietpi-set_hardware spi enable
+	/boot/dietpi/func/dietpi-set_hardware i2c enable
 	echo "After changing this HW setting, a reboot is required."
 
 createdb:
