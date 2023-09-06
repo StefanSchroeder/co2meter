@@ -13,8 +13,16 @@ install:
 createdb:
 	echo "CREATE TABLE scd30 (v1 REAL, v2 REAL, v3 REAL, t DATETIME DEFAULT CURRENT_TIMESTAMP)" | sqlite3 /var/run/scd30.db
 
+pre:
+	apt install vim git 
+	apt install sqlite3 libsqlite3-dev
+	apt install build-essential libfreetype6-dev libjpeg-dev 
+	dietpi-software install 130 
+	pip3 install -U luma.led_matrix 
+
 fetch:
-	git clone https://github.com/Sensirion/raspberry-pi-i2c-scd30
+	git clone https://github.com/Sensirion/raspberry-pi-i2c-scd30 scd30
+
 stop:
 	systemctl stop scd30-show.service
 	systemctl stop scd30.service
