@@ -20,7 +20,7 @@ createdb:
 
 pre:
 	apt install -y vim git sqlite3 libsqlite3-dev build-essential libfreetype6-dev libjpeg-dev 
-	dietpi-software install 130 
+	/boot/dietpi/dietpi-software install 130 
 	pip3 install -U luma.led_matrix 
 
 fetch:
