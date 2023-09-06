@@ -10,6 +10,11 @@ install:
 	systemctl enable scd30.service 
 	systemctl enable scd30-show.service 
 
+hwconfig:
+	/boot/dietpi/func/dietpi-set_hardware spi On
+	/boot/dietpi/func/dietpi-set_hardware i2c On
+	echo "After changing this HW setting, a reboot is required."
+
 createdb:
 	echo "CREATE TABLE scd30 (v1 REAL, v2 REAL, v3 REAL, t DATETIME DEFAULT CURRENT_TIMESTAMP)" | sqlite3 /var/run/scd30.db
 
