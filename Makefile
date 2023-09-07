@@ -22,11 +22,11 @@ install:
 	systemctl enable scd30-show.service 
 
 createdb:
-	echo "CREATE TABLE scd30 (v1 REAL, v2 REAL, v3 REAL, t DATETIME DEFAULT CURRENT_TIMESTAMP)" | sqlite3 /var/run/scd30.db
+	echo "CREATE TABLE scd30 (v1 REAL, v2 REAL, v3 REAL, t DATETIME DEFAULT CURRENT_TIMESTAMP)" | sqlite3 /scd30.db
 
 # everything below is tooling
 
 show:
-	sqlite3 "/var/run/scd30.db" "select * from scd30" | awk 'BEGIN { FS="|" }; {print $$4, $$1, $$2 }' > /tmp/result.dat
+	sqlite3 "/scd30.db" "select * from scd30" | awk 'BEGIN { FS="|" }; {print $$4, $$1, $$2 }' > /tmp/result.dat
 	tail /tmp/result.dat
 

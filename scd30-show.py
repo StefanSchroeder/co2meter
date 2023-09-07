@@ -18,7 +18,7 @@ from luma.core.render import canvas
 from luma.core.legacy import text, show_message
 from luma.core.legacy.font import proportional, CP437_FONT, TINY_FONT
 
-DB = '/var/run/scd30.db'
+DB = '/scd30.db'
 
 def get_last_values(index):
     sqConn = sqlite3.connect(DB)

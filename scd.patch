@@ -39,7 +39,7 @@ index acbcc2b..1ae904d 100644
 +    sqlite3 *db;
 +    char *zErrMsg = 0;
 +    int rc;
-+    rc = sqlite3_open("/var/run/scd30.db", &db);
++    rc = sqlite3_open("/scd30.db", &db);
 +    if( rc ){
 +      fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
 +      sqlite3_close(db);
