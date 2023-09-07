@@ -1,7 +1,7 @@
 install:
 	mkdir -p /usr/local/bin/
 	#
-	install scd30forever /usr/local/bin
+	install scd30/scd30forever /usr/local/bin
 	install scd30-show.py /usr/local/bin
 	#
 	install scd30.service /etc/systemd/system/
@@ -21,7 +21,7 @@ createdb:
 pre:
 	apt install -y vim git sqlite3 libsqlite3-dev build-essential libfreetype6-dev libjpeg-dev 
 	/boot/dietpi/dietpi-software install 130 
-	pip3 install -U luma.led_matrix 
+	/usr/local/bin/pip3 install -U luma.led_matrix 
 
 fetch:
 	git clone https://github.com/Sensirion/raspberry-pi-i2c-scd30 scd30
@@ -36,7 +36,6 @@ restart:
 status:
 	systemctl status scd30
 	systemctl status scd30-show
-
 show:
 	sqlite3 "/var/run/scd30.db" "select * from scd30" | awk 'BEGIN { FS="|" }; {print $$4, $$1, $$2 }' > /tmp/result.dat
 	tail /tmp/result.dat
