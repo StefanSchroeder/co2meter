@@ -25,7 +25,10 @@ pre:
 
 fetch:
 	git clone https://github.com/Sensirion/raspberry-pi-i2c-scd30 scd30
-	echo "apply patch and build"
+	pushd scd30
+	git apply ../scd.patch
+	make
+	popd
 
 stop:
 	systemctl stop scd30-show.service
