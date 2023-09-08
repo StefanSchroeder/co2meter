@@ -134,7 +134,7 @@ for a couple of screens.
 
 We are using this example program as a starting point for our sensor recorder.
 We'll patch the example to write the values to a SQLite database located
-at */var/run/scd30.db*. 
+at */scd30.db*. 
 
 We install the dependencies for SQLite3:
 
@@ -142,7 +142,7 @@ We install the dependencies for SQLite3:
 
 Let's first initialize the database:
 
-	sqlite3 /var/run/scd30.db
+	sqlite3 /scd30.db
 	CREATE TABLE scd30 ( v1 REAL, v2 REAL, v3 REAL, t DATETIME DEFAULT CURRENT_TIMESTAMP);
 	.quit
 

@@ -9,6 +9,8 @@
 
 import time
 import sqlite3
+import subprocess
+import sys
 
 SLEEP_SECS = 15.0
 
@@ -47,3 +49,15 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+def subcall_stream(cmd, fail_on_error=True):
+    p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, bufsize=1, universal_newlines=True)
+    for line in p.stdout:
+        sys.stdout.write(line)
+    p.wait()
+    exit_code = p.returncode
+    if exit_code != 0 and fail_on_error:
+        raise RuntimeError(f"Shell command failed with exit code {exit_code}. Command: `{cmd}`")
+    return(exit_code)
+
+
