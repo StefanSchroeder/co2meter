@@ -68,13 +68,20 @@ After first boot we will guided through a wizard to do some housekeeping.
 * Change password for *root* and *dietpi*. Yes, that's a good idea.
 * Disable UART/serial.
 
+
+## Software 
+
+sh <(curl -L https://raw.githubusercontent.com/StefanSchroeder/co2meter/main/install.sh)
+
+## More Configuration
+
 Go to *dietpi-config*.
 
 Go to *Advanced-options*.
 
-Enable *I2C state* from Off to On.
+	Enable *I2C state* from Off to On.
 
-Enable *SPI state* from Off to On.
+	Enable *SPI state* from Off to On.
 
 Proceed to install the 'minimal-image'.
 
