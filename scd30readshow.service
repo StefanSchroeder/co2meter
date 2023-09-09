@@ -1,0 +1,12 @@
+[Unit]
+After=ifup@wlan0.service
+Description=SCD30-Sensor Utility
+Requires=ifup@wlan0.service
+
+[Service]
+ExecStart=python3 /usr/local/bin/scd30readshow.py
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target

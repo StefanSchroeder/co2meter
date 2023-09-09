@@ -14,12 +14,12 @@ fetch:
 
 install:
 	mkdir -p /usr/local/bin/
-	install scd30/scd30forever /usr/local/bin
-	install scd30-show.py /usr/local/bin
-	install scd30.service /etc/systemd/system/
-	install scd30-show.service /etc/systemd/system/
-	systemctl enable scd30.service 
-	systemctl enable scd30-show.service 
+	install scd30readshow.service /etc/systemd/system/
+	install scd30.sh /usr/local/bin
+	install scd30readshow.py /usr/local/bin
+	install scd30/scd30_i2c_example_usage /usr/local/bin/scd30forever
+	systemctl enable scd30readshow.service 
+	systemctl start scd30readshow.service 
 
 createdb:
 	echo "CREATE TABLE scd30 (v1 REAL, v2 REAL, v3 REAL, t DATETIME DEFAULT CURRENT_TIMESTAMP)" | sqlite3 /scd30.db
