@@ -1,57 +1,20 @@
-diff --git a/Makefile b/Makefile
-index 952673e..744d386 100644
---- a/Makefile
-+++ b/Makefile
-@@ -15,8 +15,8 @@ endif
- all: scd30_i2c_example_usage
- 
- scd30_i2c_example_usage: clean
--	$(CC) $(CFLAGS) -o $@  ${driver_sources} ${i2c_sources} \
--		${i2c_implementation} ${common_sources} scd30_i2c_example_usage.c
-+	$(CC) $(CFLAGS) -o scd30forever  ${driver_sources} ${i2c_sources} \
-+		${i2c_implementation} ${common_sources} scd30_i2c_example_usage.c  -lsqlite3
- 
- clean:
- 	$(RM) scd30_i2c_example_usage
 diff --git a/scd30_i2c_example_usage.c b/scd30_i2c_example_usage.c
-index acbcc2b..1ae904d 100644
+index acbcc2b..16caeb8 100644
 --- a/scd30_i2c_example_usage.c
 +++ b/scd30_i2c_example_usage.c
-@@ -39,13 +39,30 @@
- #include "sensirion_common.h"
- #include "sensirion_i2c_hal.h"
- #include <stdio.h>  // printf
-+#include <sqlite3.h>
+@@ -42,10 +42,8 @@
  
  #define sensirion_hal_sleep_us sensirion_i2c_hal_sleep_usec
  
 -int main(void) {
-+static int callback(void *NotUsed, int argc, char **argv, char **azColName){
-+    int i;
-+    for(i=0; i<argc; i++){
-+        printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
-+    }
-+    printf("\n");
-+    return 0;
-+}
-+
 +int one_shot(void) {
-+    sqlite3 *db;
-+    char *zErrMsg = 0;
-+    int rc;
-+    rc = sqlite3_open("/scd30.db", &db);
-+    if( rc ){
-+      fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
-+      sqlite3_close(db);
-+      return(1);
-+    }
      int16_t error = NO_ERROR;
 -    sensirion_i2c_hal_init();
 -    init_driver(SCD30_I2C_ADDR_61);
  
      // make sure the sensor is in a defined state (soft reset does not stop
      // periodic measurement)
-@@ -53,14 +70,6 @@ int main(void) {
+@@ -53,14 +51,6 @@ int main(void) {
      scd30_soft_reset();
      sensirion_hal_sleep_us(2000000);
  
@@ -66,35 +29,26 @@ index acbcc2b..1ae904d 100644
      error = scd30_start_periodic_measurement(0);
      if (error != NO_ERROR) {
          printf("error executing start_periodic_measurement(): %i\n", error);
-@@ -80,9 +89,21 @@ int main(void) {
-                    error);
-             continue;
-         }
--        printf("co2_concentration: %.2f ", co2_concentration);
-+        /*printf("co2_concentration: %.2f ", co2_concentration);
+@@ -71,8 +61,8 @@ int main(void) {
+     float temperature = 0.0;
+     float humidity = 0.0;
+     uint16_t repetition = 0;
+-    for (repetition = 0; repetition < 30; repetition++) {
+-        sensirion_hal_sleep_us(1500000);
++    for (repetition = 0; repetition < 30000; repetition++) {
++        sensirion_hal_sleep_us(15000000);
+         error = scd30_blocking_read_measurement_data(&co2_concentration,
+                                                      &temperature, &humidity);
+         if (error != NO_ERROR) {
+@@ -83,6 +73,7 @@ int main(void) {
+         printf("co2_concentration: %.2f ", co2_concentration);
          printf("temperature: %.2f ", temperature);
--        printf("humidity: %.2f\n", humidity);
-+        printf("humidity: %.2f\n", humidity);*/
-+
-+	const char fmt[] = "INSERT INTO 'scd30' ('v1', 'v2', 'v3') VALUES (%.2f, %.2f, %.2f);";
-+	int sz = snprintf(NULL, 0, fmt, co2_concentration, temperature, humidity);
-+	char buf[sz + 1]; // note +1 for terminating null byte
-+	snprintf(buf, sizeof buf, fmt, co2_concentration, temperature, humidity);
-+	// printf("%s\n", buf);
-+	rc = sqlite3_exec(db, buf, callback, 0, &zErrMsg);
-+	if( rc!=SQLITE_OK ){
-+		fprintf(stderr, "SQL error: %s\n", zErrMsg);
-+		sqlite3_free(zErrMsg);
-+	}
-+
+         printf("humidity: %.2f\n", humidity);
++	fflush(stdout);
      }
  
      error = scd30_stop_periodic_measurement();
-@@ -90,6 +111,28 @@ int main(void) {
-         printf("error executing stop_periodic_measurement(): %i\n", error);
-         return error;
-     }
-+    sqlite3_close(db);
+@@ -93,3 +84,24 @@ int main(void) {
  
      return NO_ERROR;
  }
@@ -104,7 +58,7 @@ index acbcc2b..1ae904d 100644
 +    sensirion_i2c_hal_init();
 +    init_driver(SCD30_I2C_ADDR_61);
 +
-+    uint8_t major = 0;
++    /*uint8_t major = 0;
 +    uint8_t minor = 0;
 +    int16_t error = NO_ERROR;
 +    error = scd30_read_firmware_version(&major, &minor);
@@ -112,7 +66,7 @@ index acbcc2b..1ae904d 100644
 +        printf("error executing read_firmware_version(): %i\n", error);
 +        return error;
 +    }
-+    printf("firmware version major: %u minor: %u\n", major, minor);
++    printf("firmware version major: %u minor: %u\n", major, minor);*/
 +
 +    while(1) {
 +        one_shot();
