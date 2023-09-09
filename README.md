@@ -104,10 +104,12 @@ https://www.raspberrypi.com/documentation/computers/images/GPIO-Pinout-Diagram-2
 
 https://developer.sensirion.com/images/sensirion-tutorial-sensirionblegadget-1-6f.jpg
 
+```
 +-------------+
 |1234oooxxxx  |
 |             |
 +-------------+
+```
 
 Visit the Github project
 
@@ -133,23 +135,10 @@ Should yield:
 for a couple of screens.
 
 We are using this example program as a starting point for our sensor recorder.
-We'll patch the example to write the values to a SQLite database located
-at */scd30.db*. 
+We'll patch the example to 
 
-We install the dependencies for SQLite3:
-
-	apt install -y libsqlite3-dev sqlite3
-
-Let's first initialize the database:
-
-	sqlite3 /scd30.db
-	CREATE TABLE scd30 ( v1 REAL, v2 REAL, v3 REAL, t DATETIME DEFAULT CURRENT_TIMESTAMP);
-	.quit
-
-We now have an empty SQLite database with the right schema.
-
-	patch XXX
-
+* run longer,
+* pause between two readings.
 
 # Display
 
@@ -167,31 +156,9 @@ We now have an empty SQLite database with the right schema.
 
 Reference: https://dietpi.com/forum/t/running-an-led-dot-matrix-8x32-max7219-on-diet-pi/5518
 
-	dietpi-software install 130 
-	apt install build-essential libfreetype6-dev libjpeg-dev 
-	pip3 install -U luma.led_matrix 
-	cd /tmp
-	curl -sSfLO https://github.com/rm-hull/luma.led_matrix/archive/refs/heads/master.tar.gz
-	tar xf master.tar.gz
-	rm master.tar.gz
-	mv luma.led_matrix-master /mnt/dietpi_userdata/luma.led_matrix
-	cd /mnt/dietpi_userdata/luma.led_matrix
+We install a service to make sure that the service is started upon reboot.
 
-The python-script *scd30-show.py* reads the latest value from the SQLite database and 
-displays them on the matrix display.
+We enable and start the service.
 
-We install two services to make sure that the two services are started upon reboot.
-
-One for *reading* of the values from the SCD30 sensor and writing them to a SQLite db.
-
-	install scd30.service /etc/systemd/system/
-
-One for *reading* the values from the SQlite db and setting them on the matrix display.
-
-	install scd30-show.service /etc/systemd/system/
-
-We enable and start the services.
-
-	systemctl enable scd30.service 
-	systemctl enable scd30-show.service 
+	systemctl enable scd30readshow.service 
 	
