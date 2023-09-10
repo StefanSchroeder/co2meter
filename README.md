@@ -102,6 +102,41 @@ Then connect to it:
 If this doesn't work immediately, use the IP-identification tipps on the
 DietPi website.
 
+# MAX7219 Display
+
+## Wiring
+
+(Taken from: https://max7219.readthedocs.io/en/0.2.3/)
+
+| Board Pin  | Name  | Remarks  | RPi Pin  | RPi Function | 
+-------------------------------------------------------
+|1  | VCC  | +5V Power  | 2  | 5V0
+|2  | GND  | Ground  | 6  | GND
+|3  | DIN  | Data In  | 19  | GPIO 10 (MOSI)
+|4  | CS  | Chip Select  | 24  | GPIO 8 (SPI CE0)
+|5  | CLK  | Clock  | 23  | GPIO 11 (SPI CLK)
+
+Reference: https://dietpi.com/forum/t/running-an-led-dot-matrix-8x32-max7219-on-diet-pi/5518
+
+# The SCD30
+
+## Wiring
+
+Connect the CO2 sensor to the Raspberry Pi.
+
+| SCD30  |  RPi   |
+|--------|--------|
+| VNN 1  |  1 3.3V 
+| GND 2  |  6 GND
+| SCL 3  |  5 SCL / GPIO 3 
+| SDA 4  |  3 SDA / GPIO 2
+
+https://www.raspberrypi.com/documentation/computers/images/GPIO-Pinout-Diagram-2.png
+
+https://developer.sensirion.com/images/sensirion-tutorial-sensirionblegadget-1-6f.jpg
+
+---
+
 ## Software 
 
 Download and run the shell script to everything that is document below.
@@ -126,29 +161,6 @@ Then we install a few standard tools.
 
 	apt install vim git build-essential
 
-## The SCD30
-
-### Wiring
-
-Connect the CO2 sensor to the Raspberry Pi.
-
-SCD30  |  RPi
----------------------
-VNN 1  |  1 3.3V 
-GND 2  |  6 GND
-SCL 3  |  5 SCL / GPIO 3 
-SDA 4  |  3 SDA / GPIO 2
-
-https://www.raspberrypi.com/documentation/computers/images/GPIO-Pinout-Diagram-2.png
-
-https://developer.sensirion.com/images/sensirion-tutorial-sensirionblegadget-1-6f.jpg
-
-```
-+-------------+
-|1234oooxxxx  |
-|             |
-+-------------+
-```
 
 Visit the Github project
 
@@ -178,22 +190,6 @@ We'll patch the example to
 
 * run longer,
 * pause between two readings.
-
-# Display
-
-## Wiring
-
-(Taken from: https://max7219.readthedocs.io/en/0.2.3/)
-
-| Board Pin  | Name  | Remarks  | RPi Pin  | RPi Function | 
--------------------------------------------------------
-|1  | VCC  | +5V Power  | 2  | 5V0
-|2  | GND  | Ground  | 6  | GND
-|3  | DIN  | Data In  | 19  | GPIO 10 (MOSI)
-|4  | CS  | Chip Select  | 24  | GPIO 8 (SPI CE0)
-|5  | CLK  | Clock  | 23  | GPIO 11 (SPI CLK)
-
-Reference: https://dietpi.com/forum/t/running-an-led-dot-matrix-8x32-max7219-on-diet-pi/5518
 
 We install a service to make sure that the service is started upon reboot.
 
