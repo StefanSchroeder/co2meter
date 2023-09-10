@@ -15,7 +15,7 @@ hwconfig:
 # We fetch some tools and everything necessary for building 
 # the programs.
 pre:
-	apt install -y vim git build-essential libfreetype6-dev libjpeg-dev libopenjp2-7-dev libtiff5 libxcb1
+	apt install -y vim git build-essential libfreetype6-dev libjpeg-dev libopenjp2-7-dev libtiff6 libxcb1
 	/boot/dietpi/dietpi-software install 130 
 	/usr/local/bin/pip3 install -U luma.led_matrix 
 
