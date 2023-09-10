@@ -81,6 +81,12 @@ Sync the SD-card and eject.
 Boot the Raspberry-Pi, find it on the network using the methods described
 on page https://dietpi.com/docs/install/.
 
+I used
+
+	sudo nmap -sn 192.168.1.0/24
+
+The list of MAC-addresses indicates the vendor *Raspberry Pi Foundation*.
+
 After first boot we will guided through a wizard to do some housekeeping.
 
 * Change some software installation password. Select 'Cancel'
