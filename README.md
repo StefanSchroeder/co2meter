@@ -104,11 +104,14 @@ Then connect to it:
 If this doesn't work immediately, use the IP-identification tipps on the
 DietPi website.
 
+# Wiring Diagram
+
+[<img src="wiring.svg" width="100%" />](wiring.png)
+
 # MAX7219 Display
 
 ## Wiring
 
-(Taken from: https://max7219.readthedocs.io/en/0.2.3/)
 
 | Board Pin  | Name  | Remarks  | RPi Pin  | RPi Function | 
 |------------|-------|----------|----------|--------------|
@@ -118,9 +121,11 @@ DietPi website.
 | 4  | CS  | Chip Select  | 24  | GPIO 8 (SPI CE0)
 | 5  | CLK  | Clock  | 23  | GPIO 11 (SPI CLK)
 
-[<img src="wiring.svg" width="30" />](wiring.png)
 
-Reference: https://dietpi.com/forum/t/running-an-led-dot-matrix-8x32-max7219-on-diet-pi/5518
+Reference: 
+
+* https://dietpi.com/forum/t/running-an-led-dot-matrix-8x32-max7219-on-diet-pi/5518
+* https://max7219.readthedocs.io/en/0.2.3/
 
 # The SCD30
 
@@ -135,9 +140,10 @@ Connect the CO2 sensor to the Raspberry Pi.
 | SCL 3  |  5 SCL / GPIO 3 
 | SDA 4  |  3 SDA / GPIO 2
 
-https://www.raspberrypi.com/documentation/computers/images/GPIO-Pinout-Diagram-2.png
+Reference: 
 
-https://developer.sensirion.com/images/sensirion-tutorial-sensirionblegadget-1-6f.jpg
+* https://www.raspberrypi.com/documentation/computers/images/GPIO-Pinout-Diagram-2.png
+* https://developer.sensirion.com/images/sensirion-tutorial-sensirionblegadget-1-6f.jpg
 
 ---
 
