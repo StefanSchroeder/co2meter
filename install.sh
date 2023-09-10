@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Hello co2meter"
+echo "$0: Hello"
 
 git clone https://github.com/StefanSchroeder/co2meter.git
 
@@ -8,7 +8,7 @@ cd co2meter
 
 make hwconfig pre build install
 
-echo "Done"
+echo "$0: Done"
 
 
 
