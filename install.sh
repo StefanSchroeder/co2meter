@@ -6,7 +6,7 @@ git clone https://github.com/StefanSchroeder/co2meter.git
 
 cd co2meter
 
-make hwconfig pre fetch install
+make hwconfig pre build install
 
 echo "Done"
 

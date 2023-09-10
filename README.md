@@ -87,13 +87,15 @@ I used
 
 The list of MAC-addresses indicates the vendor *Raspberry Pi Foundation*.
 
-After first boot we will guided through a wizard to do some housekeeping.
+After connecting power, wait a minute for the Pi to boot.
+
+During first boot we will guided through a wizard to do some housekeeping.
 
 * Change some software installation password. Select 'Cancel'
 * Change password for *root* and *dietpi*. Yes, that's a good idea.
 * Disable UART/serial.
 
-After connecting power, wait a minute for the Pi to boot.
+Finish the wizard with *Install Software minimal image*.
 
 Then connect to it:
 
@@ -141,6 +143,7 @@ https://developer.sensirion.com/images/sensirion-tutorial-sensirionblegadget-1-6
 
 Download and run the shell script to everything that is document below.
 
+	apt install -y make git
 	sh <(curl -L https://raw.githubusercontent.com/StefanSchroeder/co2meter/main/install.sh)
 
 After the installation, run **reboot** to start.
