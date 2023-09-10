@@ -143,10 +143,13 @@ https://developer.sensirion.com/images/sensirion-tutorial-sensirionblegadget-1-6
 
 Download and run the shell script to everything that is document below.
 
-	apt install -y make git
 	sh <(curl -L https://raw.githubusercontent.com/StefanSchroeder/co2meter/main/install.sh)
 
 After the installation, run **reboot** to start.
+
+We are all set!
+
+The remaining chapters document what's going on behind the scenes.
 
 ## Walkthrough (what install.sh does)
 
