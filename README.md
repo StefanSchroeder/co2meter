@@ -17,14 +17,14 @@ We are building a CO₂-meter using
 The presented links are not endorsements, just references to the 
 type of product that we will use. Buy local!
 
-* Dot Matrix *MAX7219* (4 in 1 Dot Matrix Green) 
+* **Dot Matrix MAX7219** (4 in 1 Dot Matrix Green) 
   (example brands include AptoFun and Noyito).
 
 * *SCD30*  CO2 SENSOR I2C/MODBUS/PWM DIGITL 
   https://www.digikey.de/short/m9mfn9f1
 
-* Any Raspberry Pi. We will be using a Raspberry Pi Zero W, the Wifi-version,
-  to avoid the necessity of attaching a monitor and keyboard.
+* Any **Raspberry Pi**. We will be using a Raspberry Pi Zero W, the
+Wifi-version to avoid the necessity of attaching a monitor and keyboard.
 
 ## Operating system installation
 
@@ -33,8 +33,27 @@ to it over the network using SSH.
 
 Follow the installation instructions here: https://dietpi.com/docs/install/
 
+I used 
+
+	wget https://dietpi.com/downloads/images/DietPi_RPi-ARMv6-Bookworm.7z
+
+Extract the image with 
+
+	7z x DietPi_RPi-ARMv6-Bookworm.7z
+
+Write it to your SD-card. 
+
+When writing to the card, make sure to write to the entire card, not only one
+of the partitions.
+
+I used
+
+	sudo dd if=DietPi_RPi-ARMv6-Bookworm.img of=/dev/mmcblk0 status=progress bs=1M
+
 Things to note: 
 
+* Be extra careful not to overwrite your harddrive!
+* Use **lsblk** to find the name of your SD-card.
 * SSH is enabled by default.
 * If you don't connect a screen, you need some way to determine the IP-address,
  refer to the dietpi documentation.
@@ -68,12 +87,24 @@ After first boot we will guided through a wizard to do some housekeeping.
 * Change password for *root* and *dietpi*. Yes, that's a good idea.
 * Disable UART/serial.
 
+After connecting power, wait a minute for the Pi to boot.
+
+Then connect to it:
+
+	ssh root@dietpi
+
+If this doesn't work immediately, use the IP-identification tipps on the
+DietPi website.
 
 ## Software 
 
-sh <(curl -L https://raw.githubusercontent.com/StefanSchroeder/co2meter/main/install.sh)
+Download and run the shell script to everything that is document below.
 
-## More Configuration
+	sh <(curl -L https://raw.githubusercontent.com/StefanSchroeder/co2meter/main/install.sh)
+
+After the installation, run **reboot** to start.
+
+## Walkthrough (what install.sh does)
 
 Go to *dietpi-config*.
 
@@ -88,11 +119,6 @@ Proceed to install the 'minimal-image'.
 Then we install a few standard tools.
 
 	apt install vim git build-essential
-
-Reboot the Pi 
-
-	reboot
-
 
 ## The SCD30
 
