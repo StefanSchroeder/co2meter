@@ -1,8 +1,8 @@
 
 # Download image
 download:
-	wget https://dietpi.com/downloads/images/DietPi_RPi-ARMv6-Bookworm.7z
-	7z x DietPi_RPi-ARMv6-Bookworm.7z
+	wget https://dietpi.com/downloads/images/DietPi_RPi-ARMv6-Bookworm.7z -o dietpi
+	7z x dietpi/DietPi_RPi-ARMv6-Bookworm.7z
 
 writesd:
 	sudo dd if=DietPi_RPi-ARMv6-Bookworm.img of=/dev/mmcblk0 status=progress bs=1M

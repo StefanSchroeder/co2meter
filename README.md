@@ -118,6 +118,7 @@ DietPi website.
 | 4  | CS  | Chip Select  | 24  | GPIO 8 (SPI CE0)
 | 5  | CLK  | Clock  | 23  | GPIO 11 (SPI CLK)
 
+[<img src="wiring.svg" width="30" />](wiring.png)
 
 Reference: https://dietpi.com/forum/t/running-an-led-dot-matrix-8x32-max7219-on-diet-pi/5518
 
