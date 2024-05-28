@@ -1,9 +1,9 @@
 # co2meter
 
-A Raspberry Pi project to build a CO₂-meter.
+## A Raspberry Pi project to build a CO₂-meter.
 
 Idea: Making sure that there isn't too much carbon dioxide in your
-room doesn't stop to make sense just because the epidemic is (mostly)
+room doesn't stop to make sense just because the epidemic is 
 over. 
 
 We are building a CO₂-meter using 
@@ -20,7 +20,7 @@ type of product that we will use. Buy local!
 * **Dot Matrix MAX7219** (4 in 1 Dot Matrix Green) 
   (example brands include AptoFun and Noyito).
 
-* *SCD30*  CO2 SENSOR I2C/MODBUS/PWM DIGITL 
+* **SCD30**  CO2 SENSOR I2C/MODBUS/PWM DIGITL 
   https://www.digikey.de/short/m9mfn9f1
 
 * Any **Raspberry Pi**. We will be using a Raspberry Pi Zero W, the
@@ -78,7 +78,7 @@ In *dietpi.txt*:
 
 Sync the SD-card and eject.
 
-Boot the Raspberry-Pi, find it on the network using the methods described
+Boot the Raspberry-Pi by connecting it to power, find it on the network using the methods described
 on page https://dietpi.com/docs/install/.
 
 I used
@@ -89,6 +89,10 @@ The list of MAC-addresses indicates the vendor *Raspberry Pi Foundation*.
 
 After connecting power, wait a minute for the Pi to boot.
 
+Then connect to it:
+
+	ssh root@dietpi
+
 During first boot we will guided through a wizard to do some housekeeping.
 
 * Change some software installation password. Select 'Cancel'
@@ -97,7 +101,7 @@ During first boot we will guided through a wizard to do some housekeeping.
 
 Finish the wizard with *Install Software minimal image*.
 
-Then connect to it:
+After reboot, re-connect to it:
 
 	ssh root@dietpi
 
@@ -112,7 +116,6 @@ DietPi website.
 
 ## Wiring
 
-
 | Board Pin  | Name  | Remarks  | RPi Pin  | RPi Function | 
 |------------|-------|----------|----------|--------------|
 | 1  | VCC  | +5V Power  | 2  | 5V0
@@ -121,8 +124,7 @@ DietPi website.
 | 4  | CS  | Chip Select  | 24  | GPIO 8 (SPI CE0)
 | 5  | CLK  | Clock  | 23  | GPIO 11 (SPI CLK)
 
-
-Reference: 
+References: 
 
 * https://dietpi.com/forum/t/running-an-led-dot-matrix-8x32-max7219-on-diet-pi/5518
 * https://max7219.readthedocs.io/en/0.2.3/
@@ -131,7 +133,7 @@ Reference:
 
 ## Wiring
 
-Connect the CO2 sensor to the Raspberry Pi.
+Connect the CO₂-sensor to the Raspberry Pi.
 
 | SCD30  |  RPi   |
 |--------|--------|
@@ -140,7 +142,7 @@ Connect the CO2 sensor to the Raspberry Pi.
 | SCL 3  |  5 SCL / GPIO 3 
 | SDA 4  |  3 SDA / GPIO 2
 
-Reference: 
+References: 
 
 * https://www.raspberrypi.com/documentation/computers/images/GPIO-Pinout-Diagram-2.png
 * https://developer.sensirion.com/images/sensirion-tutorial-sensirionblegadget-1-6f.jpg
@@ -153,15 +155,20 @@ Download and run the shell script to everything that is document below.
 
 	sh <(curl -L https://raw.githubusercontent.com/StefanSchroeder/co2meter/main/install.sh)
 
+Don't trust my word blindly. Read the code.
+
 After the installation, run **reboot** to start.
 
 We are all set!
 
 The remaining chapters document what's going on behind the scenes.
 
-## Walkthrough (what install.sh does)
+## Walkthrough 
 
-Go to *dietpi-config*.
+This section is a deep-dive and explains 
+what install.sh does. Use it for debugging.
+
+Run *dietpi-config*.
 
 Go to *Advanced-options*.
 
@@ -174,7 +181,6 @@ Proceed to install the 'minimal-image'.
 Then we install a few standard tools.
 
 	apt install vim git build-essential
-
 
 Visit the Github project
 
