@@ -2,10 +2,6 @@
 
 ## A Raspberry Pi project to build a CO₂-meter.
 
-Idea: Making sure that there isn't too much carbon dioxide in your
-room doesn't stop to make sense just because the epidemic is 
-over. 
-
 We are building a CO₂-meter using 
 
 * a *Raspberry Pi Zero W* single-board minicomputer,
@@ -21,10 +17,10 @@ type of product that we will use. Buy local!
   (example brands include AptoFun and Noyito).
 
 * **SCD30**  CO2 SENSOR I2C/MODBUS/PWM DIGITL 
-  https://www.digikey.de/short/m9mfn9f1
+  e.g. https://www.digikey.de/short/m9mfn9f1
 
 * Any **Raspberry Pi**. We will be using a Raspberry Pi Zero W, the
-Wifi-version to avoid the necessity of attaching a monitor and keyboard.
+Wifi-version, to avoid the necessity of attaching a monitor and keyboard.
 
 ## Operating system installation
 
@@ -93,7 +89,7 @@ Then connect to it:
 
 	ssh root@dietpi
 
-During first boot we will guided through a wizard to do some housekeeping.
+During first boot we will be guided through a wizard to do some housekeeping.
 
 * Change some software installation password. Select 'Cancel'
 * Change password for *root* and *dietpi*. Yes, that's a good idea.
@@ -108,11 +104,11 @@ After reboot, re-connect to it:
 If this doesn't work immediately, use the IP-identification tipps on the
 DietPi website.
 
-# Wiring Diagram
+# Wiring Diagram for entire setup
 
 [<img src="wiring.svg" width="100%" />](wiring.png)
 
-# MAX7219 Display
+# MAX7219 Display Details
 
 ## Wiring
 
@@ -129,7 +125,7 @@ References:
 * https://dietpi.com/forum/t/running-an-led-dot-matrix-8x32-max7219-on-diet-pi/5518
 * https://max7219.readthedocs.io/en/0.2.3/
 
-# The SCD30
+# The CO2-reader SCD30 Details
 
 ## Wiring
 
@@ -151,7 +147,7 @@ References:
 
 ## Software 
 
-Download and run the shell script to everything that is document below.
+Download and run the shell script to do everything that is documented below.
 
 	sh <(curl -L https://raw.githubusercontent.com/StefanSchroeder/co2meter/main/install.sh)
 
