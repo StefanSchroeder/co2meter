@@ -31,11 +31,11 @@ Follow the installation instructions here: https://dietpi.com/docs/install/
 
 I used 
 
-	wget https://dietpi.com/downloads/images/DietPi_RPi-ARMv6-Bookworm.7z
+	wget https://dietpi.com/downloads/images/DietPi_RPi1-ARMv6-Bookworm.img.xz
 
 Extract the image with 
 
-	7z x DietPi_RPi-ARMv6-Bookworm.7z
+	unxz DietPi_RPi1-ARMv6-Bookworm.img.xz
 
 Write it to your SD-card. 
 
