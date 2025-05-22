@@ -6,17 +6,17 @@ We are building a CO₂-meter using
 
 * a *Raspberry Pi Zero W* single-board minicomputer,
 * an LCD display to show the measured values,
-* a Sensirion-SCD30 CO₂-sensor to capture the CO₂ values.
+* a *Sensirion-SCD30* CO₂-sensor to capture the CO₂ values.
 
 ## Parts lists
 
 The presented links are not endorsements, just references to the 
 type of product that we will use. Buy local!
 
-* **Dot Matrix MAX7219** (4 in 1 Dot Matrix Green) 
+* *Dot Matrix MAX7219* (4 in 1 Dot Matrix Green) 
   (example brands include AptoFun and Noyito).
 
-* **SCD30**  CO2 SENSOR I2C/MODBUS/PWM DIGITL 
+* *SCD30*  CO2 SENSOR I2C/MODBUS/PWM DIGITL 
   e.g. https://www.digikey.de/short/m9mfn9f1
 
 * Any **Raspberry Pi**. We will be using a Raspberry Pi Zero W, the
@@ -44,7 +44,7 @@ of the partitions.
 
 I used
 
-	sudo dd if=DietPi_RPi-ARMv6-Bookworm.img of=/dev/mmcblk0 status=progress bs=1M
+	sudo dd if=DietPi_RPi1-ARMv6-Bookworm.img of=/dev/mmcblk0 status=progress bs=1M
 
 Things to note: 
 
@@ -62,15 +62,15 @@ The only entries that I changed were:
 
 In *dietpi-wifi.txt*:
 
-* aWIFI_SSID[0]='MySpecificWifiName'
-* aWIFI_KEY[0]='MySuperSecretPassword'
+    aWIFI_SSID[0]='MySpecificWifiName'
+    aWIFI_KEY[0]='MySuperSecretPassword'
 
 In *dietpi.txt*:
 
-* AUTO_SETUP_KEYBOARD_LAYOUT=de
-* AUTO_SETUP_NET_WIFI_ENABLED=1
-* AUTO_SETUP_NET_WIFI_COUNTRY_CODE=DE
-* AUTO_SETUP_TIMEZONE=Europe/Berlin
+    AUTO_SETUP_KEYBOARD_LAYOUT=de
+    AUTO_SETUP_NET_WIFI_ENABLED=1
+    AUTO_SETUP_NET_WIFI_COUNTRY_CODE=DE
+    AUTO_SETUP_TIMEZONE=Europe/Berlin
 
 Sync the SD-card and eject.
 
@@ -147,7 +147,7 @@ References:
 
 ## Software 
 
-Download and run the shell script to do everything that is documented below.
+Download and run the shell script on the Raspberrypi to do everything that is documented below.
 
 	sh <(curl -L https://raw.githubusercontent.com/StefanSchroeder/co2meter/main/install.sh)
 
