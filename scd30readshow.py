@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
-# This python script fetches the last record from a SQLite db
-# that was written by another script.
+# Run the SCD30 reader and read its output.
 # Next is is shown on the MAX7219 display statically, until it
 # gets re-written.
 
