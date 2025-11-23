@@ -8,7 +8,7 @@ hwconfig:
 pre:
 	apt install -y vim git build-essential libfreetype6-dev libjpeg-dev libopenjp2-7-dev libtiff6 libxcb1
 	/boot/dietpi/dietpi-software install 130 
-	/usr/local/bin/pip3 install -U luma.led_matrix 
+	/usr/local/bin/pip3 install -U luma.led_matrix spidev
 
 # This is the SCD30-software sample for Raspberry-Pi.
 # We use the example from this repo and patch it tweak it for 
