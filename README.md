@@ -30,15 +30,11 @@ to it over the network using SSH.
 Follow the installation instructions here: https://dietpi.com/docs/install/
 
 I used 
-
-	wget https://dietpi.com/downloads/images/DietPi_RPi1-ARMv6-Bookworm.img.xz
 	
 	wget https://dietpi.com/downloads/images/DietPi_RPi1-ARMv6-Trixie.img.xz
 
 Extract the image with 
 
-	unxz DietPi_RPi1-ARMv6-Bookworm.img.xz
-	
 	unxz DietPi_RPi1-ARMv6-Trixie.img.xz
 
 Write it to your SD-card. 
@@ -47,8 +43,6 @@ When writing to the card, make sure to write to the entire card, not only one
 of the partitions.
 
 I used
-
-	sudo dd if=DietPi_RPi1-ARMv6-Bookworm.img of=/dev/mmcblk0 status=progress bs=1M
 
 	sudo dd if=DietPi_RPi1-ARMv6-Trixie.img of=/dev/mmcblk0 status=progress bs=1M
 
@@ -78,7 +72,7 @@ In *dietpi.txt*:
     AUTO_SETUP_NET_WIFI_COUNTRY_CODE=DE
     AUTO_SETUP_TIMEZONE=Europe/Berlin
 
-Sync the SD-card and eject.
+Sync the SD-card (*sync*) and eject.
 
 Boot the Raspberry-Pi by connecting it to power, find it on the network using the methods described
 on page https://dietpi.com/docs/install/.
@@ -97,8 +91,8 @@ Then connect to it:
 
 During first boot we will be guided through a wizard to do some housekeeping.
 
-* Change some software installation password. Select 'Cancel'
-* Change password for *root* and *dietpi*. Yes, that's a good idea.
+* Setup password for *root* and *dietpi*. 
+* Configure a software installation password. 
 * Disable UART/serial.
 
 Finish the wizard with *Install Software minimal image*.
