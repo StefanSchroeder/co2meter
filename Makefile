@@ -1,12 +1,3 @@
-
-# Download image
-download:
-	wget https://dietpi.com/downloads/images/DietPi_RPi1-ARMv6-Bookworm.img.xz -o dietpi
-	unxz dietpi/DietPi_RPi1-ARMv6-Bookworm.img.xz
-
-writesd:
-	sudo dd if=DietPi_RPi-ARMv6-Bookworm.img of=/dev/mmcblk0 status=progress bs=1M
-
 # We enable the hardware interfaces SPI and I2C.
 hwconfig:
 	/boot/dietpi/func/dietpi-set_hardware spi enable
