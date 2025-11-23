@@ -13,9 +13,10 @@ pre:
 # This is the SCD30-software sample for Raspberry-Pi.
 # We use the example from this repo and patch it tweak it for 
 # our needs.
+# We checkout an older version.
 build:
 	git clone https://github.com/Sensirion/raspberry-pi-i2c-scd30 scd30
-	cd scd30 && git apply ../scd.patch && make
+	cd scd30 && git checkout 66cac334b2820581d8c334e013d39b658ea70f3b && git apply ../scd.patch && make
 
 install: 
 	mkdir -p /usr/local/bin/
