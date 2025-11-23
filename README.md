@@ -8,6 +8,14 @@ We are building a CO₂-meter using
 * an LCD display to show the measured values,
 * a *Sensirion-SCD30* CO₂-sensor to capture the CO₂ values.
 
+In 11-2025, I updated this project from bookworm to trixie.
+
+DOD: After bootup, the current CO₂-concentration and the 
+current room temperature are displayed, each for 15 seconds.
+
+After boot it takes about 65 seconds for the display to 
+show the first value.
+
 ## Parts lists
 
 The presented links are not endorsements, just references to the 
@@ -147,7 +155,7 @@ References:
 
 ## Software 
 
-Download and run the shell script on the Raspberrypi to do everything that is documented below.
+Download and run the shell script on the Raspberry-Pi to do everything that is documented below.
 
 	sh <(curl -L https://raw.githubusercontent.com/StefanSchroeder/co2meter/main/install.sh)
 
