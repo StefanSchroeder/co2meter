@@ -32,10 +32,14 @@ Follow the installation instructions here: https://dietpi.com/docs/install/
 I used 
 
 	wget https://dietpi.com/downloads/images/DietPi_RPi1-ARMv6-Bookworm.img.xz
+	
+	wget https://dietpi.com/downloads/images/DietPi_RPi1-ARMv6-Trixie.img.xz
 
 Extract the image with 
 
 	unxz DietPi_RPi1-ARMv6-Bookworm.img.xz
+	
+	unxz DietPi_RPi1-ARMv6-Trixie.img.xz
 
 Write it to your SD-card. 
 
@@ -45,6 +49,8 @@ of the partitions.
 I used
 
 	sudo dd if=DietPi_RPi1-ARMv6-Bookworm.img of=/dev/mmcblk0 status=progress bs=1M
+
+	sudo dd if=DietPi_RPi1-ARMv6-Trixie.img of=/dev/mmcblk0 status=progress bs=1M
 
 Things to note: 
 
